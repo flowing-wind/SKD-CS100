@@ -52,7 +52,7 @@ int main(void)
             break;
 
         case 0x5: // print
-            printf("x%u = %u\n", r1, reg[r1]);
+            printf("x%u = %d\n", r1, reg[r1]);
             break;
 
         default:
