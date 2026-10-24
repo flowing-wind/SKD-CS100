@@ -53,7 +53,7 @@ char *hw3_strchr(const char *str, int ch)
         }
         str++;
     }
-    return (char)ch == '\0' ? (char *)ch : NULL;
+    return (char)ch == '\0' ? (char *)str : NULL;
 }
 
 char *hw3_strcpy(char *dest, const char *src)
