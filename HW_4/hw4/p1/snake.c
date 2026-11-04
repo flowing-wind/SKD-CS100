@@ -47,7 +47,7 @@ static Direction newDirection(const Snake *snake, Direction requested) {
     Direction correctDir = curDir;
 
     // (unsigned int)requested to ignore invalid direction values
-    // follow the request as long as the dir is not the oppsite or length is 1
+    // follow the request as long as the dir is not the opposite or length is 1
     if ((unsigned int)requested < DIRECTION_COUNT &&
         (snake->m_length == 1 || requested != oppositeDir)) {
         correctDir = requested;
