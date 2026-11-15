@@ -4,26 +4,6 @@
 #include <cstddef>
 #include <utility>
 
-// Problem 4 (Smart Pointers): implement UniquePtr<T> and SharedPtr<T>.
-// See the handout for the full requirements:
-//
-// UniquePtr<T>: exclusive ownership.
-//   - default ctor (owns nothing), ctor from T*, destructor deletes
-//   - copy ctor/assignment = delete; move ctor/assignment noexcept,
-//     self-assignment safe, source becomes "null"
-//   - *p, *cp (const), p->, explicit operator bool, get()
-//   - reset(T* = nullptr), release()
-//
-// SharedPtr<T>: shared ownership via reference counting.
-//   - default ctor (owns nothing), ctor from T* (count starts at 1)
-//   - copy ctor/assignment increment the counter; copy-assignment must be
-//     self-assignment safe (increment before decrement!)
-//   - move ctor/assignment steal the pointer (noexcept), source becomes empty
-//   - destructor decrements; destroys the object exactly once at zero
-//   - *p, p->, explicit operator bool, get(), use_count()
-//
-// Do NOT include <memory>.
-
 template <typename T>
 class UniquePtr
 {
@@ -170,7 +150,7 @@ public:
     }
   }
   // SharedPtr<T> r = std::move(p);
-  SharedPtr(SharedPtr &&other) : ctrl_(other.ctrl_)
+  SharedPtr(SharedPtr &&other) noexcept : ctrl_(other.ctrl_)
   {
     other.ctrl_ = nullptr;
   }
@@ -196,7 +176,7 @@ public:
   // q = std::move(p);
   SharedPtr &operator=(SharedPtr &&other) noexcept
   {
-    if (this = &other)
+    if (this == &other)
     {
       return *this;
     }
