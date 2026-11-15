@@ -163,29 +163,10 @@ public:
   // <, <=, >, >=, == and !=
   bool operator==(const Dynarray &other) const
   {
-    if (size_ != other.size_)
-    {
-      return false;
-    }
-
-    if (empty())
-    {
-      return true;
-    }
-
-    return std::equal(data_, data_ + size_, other.data_);
+    return std::equal(data_, data_ + size_, other.data_, other.data_ + other.size_);
   }
   bool operator<(const Dynarray &other) const
   {
-    if (empty())
-    {
-      return !other.empty();
-    }
-    if (other.empty())
-    {
-      return false;
-    }
-
     return std::lexicographical_compare(
         data_, data_ + size_,
         other.data_, other.data_ + other.size_);
